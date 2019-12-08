@@ -1,0 +1,78 @@
+<html dir="rtl">
+    <!--
+		/**
+		 *
+		 * Author Suleiman Al-Othman (@sulealothman)
+		 * Validation Social Media Accounts
+		 * Matched for username Github, Twitter, Instagram and Snapchat
+		 *
+		 **/
+	 -->
+    <head>
+        <meta charset="utf-8" />
+        <title>Accounts Validation</title>
+        
+        <link rel="stylesheet" href="https://cdn.rtlcss.com/bootstrap/v4.2.1/css/bootstrap.min.css" integrity="sha384-vus3nQHTD+5mpDiZ4rkEPlnkcyTP+49BhJ4wJeJunw06ZAp+wzzeBPUXr42fi8If" crossorigin="anonymous">
+        <script
+			  src="https://code.jquery.com/jquery-3.4.1.min.js"
+			  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+			  crossorigin="anonymous"></script>
+        <script 
+              src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" 
+              integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" 
+              crossorigin="anonymous"></script>
+        <script 
+              src="https://cdn.rtlcss.com/bootstrap/v4.2.1/js/bootstrap.min.js" 
+              integrity="sha384-a9xOd0rz8w0J8zqj1qJic7GPFfyMfoiuDjC9rqXlVOcGO/dmRqzMn34gZYDTel8k" 
+              crossorigin="anonymous"></script>
+
+            
+        <link rel="stylesheet" 
+              href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+    </head>
+    <body>
+        <div class="container bg-white">
+            <div class="row h-50 justify-content-center align-items-center">
+                <div class="form-group col-12 col-md-8 col-lg-4 bg-white border border-ddark rounded text-center p-4">
+                        <h4>مطابقة حسابات تواصل الإجتماعي</h4>
+                    <input dir="ltr" class="form-control mb-3"  type="text" id="txt" placeholder="example" />
+                    <p id="result"></p>
+                </div>
+            </div>
+        </div>
+        
+        <script>
+            var patterns = {
+                "github" : /^(?!.*\-\-|.*\-$|.*\_)[a-zA-Z0-9][\w-]+[a-zA-Z0-9]{1,39}$/g,
+                "twitter" : /^[A-z0-9]{1,15}$/g,
+                "instagram" : /^(?!.*\.\.|.*\.$)[A-z0-9][\w.]+[A-z0-9]{1,30}$/g,
+                "snapchat": /^(?!.*\.\.|.*\_\_|.*\-\-)(?!.*\.$|.*\_$|.*\-$)(?!.*\.\-|.*\-\.|.*\-\_|.*\_\-|.*\.\_|.*\_\.)[a-zA-Z]+[\w.-][0-9A-z]{1,15}$/g,
+            };
+            let seccuss = "<div class='alert alert-success '>" +
+                            " <i class='fa fa-" + "$Q" + " text-dark' aria-hidden='true'></i> " +
+                            "<span class='text-dark'>مُتطابق</span>" +
+                            "</div>";
+            let failed = "<div class='alert alert-danger '>" +
+                            " <i class='fa fa-" + "$Q" + " text-dark' aria-hidden='true'></i> " +
+                            "<span class='text-dark'>غير مُتطابق</span>" +
+                            "</div>";
+            $(document).ready(function() {
+                $('#txt').keyup(function () {
+                    var result = '';
+                    $.each(patterns, function( key, value ) {
+                        ($('#txt').val().match(value)) ? result += seccuss.replace('$Q', key) : result += failed.replace('$Q', key) ;
+                    });
+
+                    if($('#txt').val() == "") {
+                        $('#result').fadeOut(500, function(){
+                            $(this).html("").removeClass('fadeCheck');
+                        });
+                    } else {
+                        ($('#result').hasClass('fadeCheck')) ? $('#result').html(result) : $('#result').html(result).hide().fadeIn('slow').addClass('fadeCheck');
+                    }
+                });
+            });
+        
+        </script>
+    </body>
+</html>
